@@ -1,0 +1,65 @@
+<head>
+    <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.4.3.min.js"></script>
+</head>
+<body>
+<div class="row-fluid span10">
+    <div class="row-fluid">
+        <!-- left side panel-->
+        <div class="row-fluid span4">
+            <div class="well">
+                <table>
+                    <td>{{loginButtons}}</td>
+                    <td>{{> game}}</td>
+                </table>
+            </div>
+            <div class="row-fluid">
+                {{> answer}}
+            </div>
+            <div class="row-fluid">
+                <div id='question' class="well"></div>
+                {{> list}}
+            </div>
+        </div>
+        <!-- game board-->
+        <div class="row-fluid span5">
+            <div id='gameBoard'></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<template name="answer">
+    <div class="well">
+        <form>
+            <input type="text" id="answer" class="input-large span12" placeholder="Enter your answer here..." required>
+        </form>
+    </div>
+</template>
+
+<template name="game">
+    <div>
+        <button id="new" class="btn btn-primary">New Game</button>
+        <button id="clear" class="btn btn-primary">Leave Game</button>
+    </div>
+</template>
+
+<template name="list">
+    <div>
+        {{#if currentUser}}
+        <table id='join' class="span5 well">
+            <tbody>
+            {{#each listGames}}
+            <tr>
+                <td>
+                    <form>
+                        <input id="game" type="hidden" value='{{playerOne.user}}'>
+                        <button class="btn btn-primary">Join {{playerOne.user}}'s game</button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        {{/if}}
+    </div>
+</template>

@@ -1,52 +1,47 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Alan
- * Date: 29/04/13
- * Time: 13:35
- * To change this template use File | Settings | File Templates.
- */
-
-Players = new Meteor.Collection("players");
-
-if (Meteor.isClient) {
-    Template.leaderboard.players = function () {
-        return Players.find({}, {sort: {score: -1, name: 1}});
-    };
-
-    Template.leaderboard.selected_name = function () {
-        var player = Players.findOne(Session.get("selected_player"));
-        return player && player.name;
-    };
-
-    Template.player.selected = function () {
-        return Session.equals("selected_player", this._id) ? "selected" : '';
-    };
-
-    Template.leaderboard.events({
-        'click input.inc': function () {
-            Players.update(Session.get("selected_player"), {$inc: {score: 5}});
-        }
-    });
-
-    Template.player.events({
-        'click': function () {
-            Session.set("selected_player", this._id);
-        }
-    });
-}
-
-// On server startup, create some players if the database is empty.
-if (Meteor.isServer) {
-    Meteor.startup(function () {
-        if (Players.find().count() === 0) {
-            var names = ["Ada Lovelace",
-                "Grace Hopper",
-                "Marie Curie",
-                "Carl Friedrich Gauss",
-                "Nikola Tesla",
-                "Claude Shannon"];
-            for (var i = 0; i < names.length; i++)
-                Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
-        }
-    });
-}
+//if (Meteor.isClient) {
+//
+//    Meteor.startup(function(){
+//
+//    this.draw = function(x,y,radius,numOfSides) {
+//
+//        var points = 6;
+//        var width = x;
+//        var height = y;
+//        var angle = ((2 * Math.PI) / points);
+//        var hexagon = [];
+//        context.strokeStyle = '#0000FF';
+//        context.lineWidth = 2;
+//
+//        for (i = 0; i < points; i++) {
+//            hexagon.push({
+//                'x': radius * Math.cos(angle * i) + x,
+//                'y': radius * Math.sin(angle * i) + y
+//            })
+//        }
+//        $(hexagon).each(function(index,hex){
+//            if (index < 6 ){
+//                context.moveTo(hexagon[(index + 1) % 6].x, hexagon[(index + 1) % 6].y);
+//                context.lineTo(hex.x, hex.y);
+//                console.log(hex.x + ' '+ hex.y);
+//                context.stroke();
+//            }
+//        });
+//
+//    };
+//
+//    this.deg2rad = function (ang) {
+//        return ang * (Math.PI/180.0);
+//    };
+//
+//    // Get the canvas 2d drawing context
+//    var canvas = document.getElementById('canvas');
+//    var context = canvas.getContext('2d');
+//
+//    // Calling drawPolygon to draw a hexagon
+//    this.draw(0,0,40,3);
+//    this.draw(60,35,40,3);
+//    this.draw(120,70,40,3);
+//    this.draw(180,105,40,3);
+//    });
+//
+//}
