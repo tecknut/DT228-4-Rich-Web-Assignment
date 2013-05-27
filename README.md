@@ -1,6 +1,8 @@
 DT228-4-Rich-Web-Assignment
 ===========================
 
+Alan Egan C09294686
+
 This is supposed to be a blockbuster style game. 
 Players log in and create a game. Other players can see games and join to play.
 
